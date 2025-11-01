@@ -1,0 +1,26 @@
+from types import Callable
+
+
+def caching_fibonacci() -> Callable[[int], int]:
+    cache = {}
+
+    def fibonacci(n: int) -> int:
+        if n <= 0:
+            return 0
+        if n == 1:
+            return n
+        if n in cache:
+            return cache[n]
+        result = fibonacci(n - 1) + fibonacci(n - 2)
+        cache[n] = result
+        return result
+
+    return fibonacci
+
+
+# Отримуємо функцію fibonacci
+fib = caching_fibonacci()
+
+# Використовуємо функцію fibonacci для обчислення чисел Фібоначчі
+print(fib(10))  # Виведе 55
+print(fib(15))  # Виведе 610
